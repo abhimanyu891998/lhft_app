@@ -2,7 +2,7 @@
 
 Backend - Flask , Frontend - React
 
-![alt text](https://ibb.co/7tKCr9W)
+![App Screenshot](https://i.ibb.co/v4kqLtP/Screenshot-2021-04-11-at-11-18-11-PM.png)
 
 ## Key Technologies and Concepts used
 
