@@ -12,12 +12,16 @@ import { DataGrid } from '@material-ui/data-grid';
 
 
 function App() {
+
+  //Global variable for updating row id in the data grid
   var rowId = 0;
+
+  //App states
   const [dataStream, setDataStream] = useState({});
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [eventSource, setEventSource] = useState(null);
   const [updateFrequency, setUpdateFrequency] = useState(300)
-  const [circularDataBuffer, setCircularDataBuffer] = useState(new CircularBuffer(500))
+  const [circularDataBuffer, setCircularDataBuffer] = useState(new CircularBuffer(500)) //Circular buffer to keep the data always to size of 500
   const [rows, setRows] = useState([
     { id: 1, symbol: 'AAAA', price: 2},
     { id: 2, symbol: 'BBB', price: 3}
@@ -27,10 +31,10 @@ function App() {
   const [currentUpperLimit, updateCurrentUpperLimitValue] = useState(0)
   const [currentLowerLimit, updateCurrentLowerLimitValue] = useState(0)
 
-
-
+  //Web server path
   const webServerPath = "http://localhost:5000/"
 
+  //columns for data-grid
   const columns = [
     { field: 'symbol', headerName: 'SYMBOL' },
     { field: 'price', headerName: 'PRICE'},
@@ -40,7 +44,7 @@ function App() {
 
 
 
-
+  //Function to update circular buffer with the polled data and add it to the rows
   const handleDataStream = (data) => {
     setDataStream(data)
     //console.log(dataStream)
@@ -53,7 +57,7 @@ function App() {
       else if(data[i].price<lowerLimit) {
         data[i]['color'] = 'RED'
       }
-      
+
       let newCircularBuffer = circularDataBuffer.enq(data[i])
       setCircularDataBuffer(newCircularBuffer)
       let circularBufferArray = circularDataBuffer.toarray()
@@ -62,10 +66,12 @@ function App() {
     }
   }
 
+
+  //Function that connects to server for updates
   const subscribeToUpdates = (e) => {
 
     e.preventDefault()
-    let eventSource = new EventSource(webServerPath + "subscribeElements");
+    let eventSource = new EventSource(webServerPath + "subscribeElements"); //Used to get server sent events data
 
     eventSource.onopen = e => {
       console.log(e)
@@ -92,11 +98,13 @@ function App() {
 
   }
 
+  //To stop getting data from the server
   const unsubscribeToUpdates = () => {
     eventSource.close();
     setIsSubscribed(false)    
   }
 
+  //To update the frequency at which we recieve updates (Due to app implementation, right now the optimal frequency is 4000 ms, this can be improved with multithreading and further optimisations)
   const changeUpdateFrequency = (e) => {
     let value = e.target.value
     if(value!='') {
@@ -109,8 +117,8 @@ function App() {
 
   }
 
+  //To send the updated frequency to server through a post request
   const sendUpdatedFrequency = (e) => {
-    console.log("Frequency to be sent is", updateFrequency)
     let postData = new FormData()
     postData.append('frequency', updateFrequency)
     let postURL = webServerPath + "updateFrequency"
@@ -132,11 +140,13 @@ function App() {
     
   }
 
+  //To cap the upper limit value for green color
   const setUpperLimitValue = (e) => {
       setUpperLimit(currentUpperLimit)
 
   }
 
+  //To cap the lower limit value for red color
   const setLowerLimitValue = (e) => {
     setLowerLimit(currentLowerLimit)
   }
@@ -152,6 +162,7 @@ function App() {
     }
   }
 
+
   const changeLowerLimit = (e) => {
     let value = e.target.value
     if(value!='') {
@@ -165,12 +176,8 @@ function App() {
   
 
 
-  useEffect(() => {
-    
-  },[])
-
-
   let subscriptionButton;
+  //To toggle between subscribe and unsubscribe buttons
   if(isSubscribed) {
     subscriptionButton = <UnsubscribeButton onClick = {unsubscribeToUpdates} />
   } 
