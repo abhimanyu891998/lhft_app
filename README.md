@@ -1,10 +1,22 @@
-# Getting Started with Create React App
+# Documentation LHFT App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Flask as backend and React frontend. 
 
-## Available Scripts
+## Key Technologies and Concepts used
 
-In the project directory, you can run:
+1.) Server Sent Events : Used SSE so that client can listen to data stream for server indefinitely, until the client closes connection, the server pushes data at a fixed frequency using event streams.
+
+2.) Circular Buffer: In order to only show a maximum 500 elements on frontend, I used a circular buffer that acts like a LRU cache and removes least recently used elements from the cache when the size exceeds 500.
+
+3.) React Bootstrap and Material UI datagrid for frontend styling: Basic styling is bootstrap based, and the data-grid is from Material UI. 
+
+
+## Functionality
+
+1.) Backend generates a random stream of data, each update compising of 50 elements at a fixed interval frequency that can be updated from frontend as well. 
+2.) Frontend begins by subscribing to the data stream that triggers the server sent events, meanwhile frontend can also update the frequency at which updates ae sent by the server and that is reflected in real time.
+3.) Frontend can then unsubscribe to the data-stream whenever it wants.
+
 
 ### `yarn start`
 
