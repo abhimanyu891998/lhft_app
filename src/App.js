@@ -42,8 +42,7 @@ function App() {
 
   ];
 
-
-
+  
   //Function to update circular buffer with the polled data and add it to the rows
   const handleDataStream = (data) => {
     setDataStream(data)
