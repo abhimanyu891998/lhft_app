@@ -2,6 +2,8 @@
 
 Backend - Flask , Frontend - React
 
+![alt text](https://ibb.co/7tKCr9W)
+
 ## Key Technologies and Concepts used
 
 1.) Server Sent Events : Used SSE so that client can listen to data stream for server indefinitely, until the client closes connection, the server pushes data at a fixed frequency using event streams.
