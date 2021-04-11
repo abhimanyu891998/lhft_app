@@ -14,7 +14,9 @@ Flask as backend and React frontend.
 ## Functionality
 
 1.) Backend generates a random stream of data, each update compising of 50 elements at a fixed interval frequency that can be updated from frontend as well. 
-2.) Frontend begins by subscribing to the data stream that triggers the server sent events, meanwhile frontend can also update the frequency at which updates ae sent by the server and that is reflected in real time.
+
+2.) Frontend begins by subscribing to the data stream that triggers the server sent events, meanwhile frontend can also update the frequency at which updates are sent by the server and that is reflected in real time.
+
 3.) Frontend can then unsubscribe to the data-stream whenever it wants.
 
 
