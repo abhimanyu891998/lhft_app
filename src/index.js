@@ -3,11 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import FontStyles from './components/styles/fontStyles.styles'
+import store from './store'
+import {Provider} from 'react-redux'
 ReactDOM.render(
+  <Provider store={store}>
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <FontStyles />
+    <App /> 
+  </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 
